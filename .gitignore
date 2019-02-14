@@ -13,7 +13,7 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> env file ###
+# env file
 /.env
 
 ###> symfony/web-server-bundle ###
