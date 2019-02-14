@@ -1,0 +1,1 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/630ffd57003045cfaae651b3a5e2c654)](https://www.codacy.com/app/lrnflx/siteAnnonces?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lrnflx/siteAnnonces&amp;utm_campaign=Badge_Grade)
