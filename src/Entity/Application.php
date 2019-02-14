@@ -14,7 +14,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\HasLifecycleCallbacks()
  */
 class Application
-{   
+{
+
 
     /**
      * @ORM\Id()
@@ -136,15 +137,14 @@ class Application
      */
     public function isContentValid(ExecutionContextInterface $context)
     {
-      $forbiddenWords = array('démotivation', 'abandon', 'chauffe');
+        $forbiddenWords = array('démotivation', 'abandon', 'chauffe');
 
-      if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getContent())) {
-
-        $context
-          ->buildViolation('Contenu invalide car il contient un mot interdit.') 
-          ->atPath('content')                                                   
-          ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
-        ;
-      }
+        if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getContent())) {
+            $context
+            ->buildViolation('Contenu invalide car il contient un mot interdit.')
+            ->atPath('content')
+            ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+            ;
+        }
     }
 }

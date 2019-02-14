@@ -54,7 +54,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-       return $this->email;
+        return $this->email;
     }
 
 
@@ -178,6 +178,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-    
 }

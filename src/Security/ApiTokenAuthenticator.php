@@ -31,7 +31,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
     {
         $authorizationHeader = $request->headers->get('Authorization');
         // skip beyond "Bearer "
-        return substr($authorizationHeader, 7); 
+        return substr($authorizationHeader, 7);
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -41,14 +41,13 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
             'token' => $credentials
         ]);
 
-        if (!$token)
-        {
+        if (!$token) {
             throw new CustomUserMessageAuthenticationException(
                 'Invalid API Token'
-            ); 
+            );
         }
 
-        if($token->isExpired()){
+        if ($token->isExpired()) {
             throw new CustomUserMessageAuthenticationException('Token Expired');
         }
 

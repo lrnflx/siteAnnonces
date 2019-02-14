@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Image;
 use App\Entity\Skill;
 use App\Entity\Advert;
@@ -16,23 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
 class AdvertController extends AbstractController
-
-{   /**
+{
+   /**
     * @Route("/home", name="homepage")
     */
-   public function index()
-   {   
-       return $this->render('home.html.twig');
-   }
+    public function index()
+    {
+        return $this->render('home.html.twig');
+    }
 
 
     /**
      * @Route("/adverts", name="list_adverts")
      */
     public function list()
-    {   
+    {
         // dd($this->container);
         dump($this);
 
@@ -57,7 +55,7 @@ class AdvertController extends AbstractController
 
         return $this->render('advert/details.html.twig', [
             'advert' => $advert,
-            'applications' => $applications, 
+            'applications' => $applications,
         
 
         ]);
@@ -68,18 +66,17 @@ class AdvertController extends AbstractController
      * @IsGranted("ROLE_ADMIN_ADVERT")
      */
     public function add(Request $request)
-    {  
+    {
         $advert = new Advert();
         $form = $this->get('form.factory')->create(AdvertType::class, $advert);
         $em = $this->getDoctrine()->getManager();
         
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) 
-        {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($advert);
             $em->flush();
         
             return $this->redirectToRoute('details_advert', array('id' => $advert->getId()));
-       }
+        }
         return $this->render('advert/add.html.twig', array(
             'form' => $form->createView(),
 
@@ -91,7 +88,7 @@ class AdvertController extends AbstractController
      * @IsGranted("ROLE_ADMIN_ADVERT")
      */
     public function edit(Request $request, Advert $advert)
-    {   
+    {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         // $originalSkills = new ArrayCollection();
@@ -105,14 +102,13 @@ class AdvertController extends AbstractController
         $form   = $this->get('form.factory')->create(AdvertEditType::class, $advert);
         $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->isValid()) 
-        {   
+        if ($request->isMethod('POST') && $form->isValid()) {
             $em = $this->get('doctrine')->getManager();
 
     
-        // foreach ($originalSkills as $skill) 
+        // foreach ($originalSkills as $skill)
         // {
-        //     if (false === $advert->getSkills()->contains($skill)) 
+        //     if (false === $advert->getSkills()->contains($skill))
         //     {
         //         // remove the Task from the Tag
         //         $advert->removeSkill($skill);
@@ -127,7 +123,7 @@ class AdvertController extends AbstractController
             $em->persist($advert);
             $em->flush();
         
-        return $this->redirectToRoute('details_advert', array('id' => $advert->getId()));
+            return $this->redirectToRoute('details_advert', array('id' => $advert->getId()));
         }
         return $this->render('advert/edit.html.twig', array(
             'form' => $form->createView(),
@@ -145,5 +141,4 @@ class AdvertController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('list_adverts');
     }
-
 }

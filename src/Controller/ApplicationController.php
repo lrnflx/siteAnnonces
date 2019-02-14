@@ -24,8 +24,8 @@ class ApplicationController extends AbstractController
     /**
      * @Route("/advert/{id}/apply" ,name="application_add")
      */
-    public function addApplication(Request $request,Advert $advert)
-    {   
+    public function addApplication(Request $request, Advert $advert)
+    {
         $application = new Application();
         // $formApplication = $this->createForm(ApplicationType::class, $application);
         $formApplication = $this->get('form.factory')->create(ApplicationType::class, $application);
@@ -33,8 +33,7 @@ class ApplicationController extends AbstractController
 
 
 
-        if ($request->isMethod('POST') && $formApplication->isValid())
-        {       
+        if ($request->isMethod('POST') && $formApplication->isValid()) {
             $em = $this->getDoctrine()->getManager();
             // $em->persist($advert);
             $application->setAdvert($advert);
@@ -49,15 +48,10 @@ class ApplicationController extends AbstractController
       
             return $this->render('application/apply.html.twig', [
                 'formApplication' => $formApplication->createView(),
-        ]);
+            ]);
         // $application = new Application();
         // $application->setAuthor('Julien Dupont');
         // $application->setContent('Voilà ma candidature!');
         // $application->setAdvert($advert);
-
     }
-
-
-
-
 }

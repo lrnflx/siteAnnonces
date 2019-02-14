@@ -23,4 +23,3 @@ class SkillType extends AbstractType
         ]);
     }
 }
-

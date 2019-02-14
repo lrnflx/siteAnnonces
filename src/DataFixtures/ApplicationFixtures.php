@@ -9,7 +9,6 @@ use App\Entity\Advert;
 use App\Entity\Aplication;
 use Faker\Factory;
 
-
 class ApplicationFixtures extends Fixture
 {
  
@@ -23,6 +22,4 @@ class ApplicationFixtures extends Fixture
         // $this->addFaker($manager);
         // $manager->flush();
     }
-
-  
 }

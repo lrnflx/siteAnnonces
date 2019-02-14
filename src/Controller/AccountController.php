@@ -13,8 +13,6 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-
-
 class AccountController extends BaseController
 {
     /**
@@ -59,6 +57,5 @@ class AccountController extends BaseController
         // // echo $jsonContent; // or return it in a Response
 
         // return new JsonResponse($jsonContent);
-   
     }
 }

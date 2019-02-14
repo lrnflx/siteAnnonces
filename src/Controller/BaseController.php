@@ -11,6 +11,6 @@ abstract class BaseController extends AbstractController
 
     public function getUser(): User
     {
-       return parent::getUser();
+        return parent::getUser();
     }
 }

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Advert
 {
     public function __construct()
-    {   
+    {
         $this->application = new ArrayCollection();
         $this->advertSkills = new ArrayCollection();
         $this->skills = new ArrayCollection();
@@ -77,16 +77,16 @@ class Advert
     
 
 
-    // Création d'un champs de liaison vers entité Image 
+    // Création d'un champs de liaison vers entité Image
       /**
-    * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"}) 
+    * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $image;
 
    
     /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="advert") 
+    * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="advert")
     * @ORM\JoinColumn(nullable=false)
     */
     private $application;
@@ -99,7 +99,7 @@ class Advert
 
    
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdvertSkill", mappedBy="advert", cascade={"persist" , "remove"}) 
+     * @ORM\OneToMany(targetEntity="App\Entity\AdvertSkill", mappedBy="advert", cascade={"persist" , "remove"})
      */
     private $skills;
 
@@ -262,12 +262,12 @@ class Advert
     
     public function increaseApplication()
     {
-      $this->nbApplications++;
+        $this->nbApplications++;
     }
   
     public function decreaseApplication()
     {
-      $this->nbApplications--;
+        $this->nbApplications--;
     }
     
     /**
@@ -285,5 +285,4 @@ class Advert
     {
         return $this->nbApplications;
     }
-
 }

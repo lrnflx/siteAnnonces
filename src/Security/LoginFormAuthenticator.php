@@ -19,7 +19,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
-{   use TargetPathTrait;
+{
+    use TargetPathTrait;
 
     private $userRepository;
     private $router;
@@ -35,7 +36,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request) 
+    public function supports(Request $request)
     {
         // todo
         return $request->attributes->get('_route') === 'app_login'
@@ -50,12 +51,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
 
-       $request->getSession()->set(
-           Security::LAST_USERNAME,
-           $credentials['email']
-       );
+        $request->getSession()->set(
+            Security::LAST_USERNAME,
+            $credentials['email']
+        );
 
-       return $credentials;
+        return $credentials;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -64,8 +65,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         // dd($credentials);
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
 
-        if(!$this->csrfTokenManager->isTokenValid($token)) 
-        {
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
@@ -78,10 +78,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
-    {   
-        //If there is something in the session : 
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey))
-        {
+    {
+        //If there is something in the session :
+        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
@@ -93,5 +92,4 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         //TO DO : IMPLEMENT getLoginURL() method
         return $this->router->generate('app_login');
     }
-
 }

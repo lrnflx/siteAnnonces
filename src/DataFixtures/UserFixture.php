@@ -9,9 +9,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
 class UserFixture extends Fixture
-{   
+{
+
     private $faker;
     private $passwordEncoder;
     
@@ -34,8 +34,7 @@ class UserFixture extends Fixture
     public function addFaker(ObjectManager $manager)
     {
 
-        for ($i = 1; $i <=10; $i++)
-        {   
+        for ($i = 1; $i <=10; $i++) {
             $user = new User();
             $user->setEmail($this->faker->email);
             $user->setFirstName($this->faker->firstName);
@@ -54,8 +53,7 @@ class UserFixture extends Fixture
             $manager->persist($user);
         }
 
-        for ($i = 1; $i <=3; $i++)
-        {
+        for ($i = 1; $i <=3; $i++) {
             $user = new User();
 
             $user->setEmail(sprintf('admin%d@jobsite.com', $i));
@@ -69,6 +67,5 @@ class UserFixture extends Fixture
 
             $manager->persist($user);
         }
-
     }
 }

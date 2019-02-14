@@ -22,17 +22,17 @@ class AdvertSkillType extends AbstractType
             ->add('skill', EntityType::class, [
                 'class'         => Skill::class,
                 'choice_label'  => 'name',
-                'multiple' => false, 
+                'multiple' => false,
                 'expanded' => false
             
-            ])            
+            ])
             ->add('level', ChoiceType::class, [
                 'choices' => [
                     'expert' => 'expert',
                     'confirmé' => 'confirmé',
                     'débutant' => 'débutant'
-           ]
-       ]);
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

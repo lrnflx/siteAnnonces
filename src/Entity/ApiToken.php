@@ -64,6 +64,4 @@ class ApiToken
     {
         return $this->getExpiresAt() <= new \DateTime();
     }
-
-
 }

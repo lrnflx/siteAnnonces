@@ -24,7 +24,7 @@ class Skill
     private $name;
    
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdvertSkill", mappedBy="skill", cascade={"persist", "remove"}) 
+     * @ORM\OneToMany(targetEntity="App\Entity\AdvertSkill", mappedBy="skill", cascade={"persist", "remove"})
      */
     private $adverts;
 
@@ -81,5 +81,4 @@ class Skill
 
         return $this;
     }
-
 }

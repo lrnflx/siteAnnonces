@@ -74,5 +74,4 @@ class AdvertSkill
 
         return $this;
     }
-
-    }
+}
