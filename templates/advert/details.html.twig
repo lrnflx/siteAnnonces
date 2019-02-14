@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<article>
+
+    <h2> Offre n° {{ advert.id }} : {{ advert.title }}  </h2>
+        <p>Publiée par {{ advert.author }}, le {{ advert.date|date('Y:m:d') }} </p>
+
+    <div class="row">
+		<div class="col-9">    
+            <p> {{ advert.content }} </p>
+        </div>
+		<div class="col-3">  
+            {% if advert.image is not null %}
+                <img src="{{ advert.image.url }}" width="120"  height="120"/>
+             {% endif  %}
+        </div>
+    </div>	
+   
+    <hr>
+
+</article>
+ 
+ {% if not advert.skillS.empty %}  
+    <div class="row">
+            <div class="col-9">
+                <h3>Compétences requises</h3>
+                    <ul>
+                        {% for advertskill in advert.skills %}
+                            <li>  {{ advertskill.skill.name   }}  Niveau requis : {{ advertskill.level }}</li>
+                        {% endfor %}
+                    </ul>
+    </div>
+    
+    <div class="col-3"></div>
+    </div>	
+ {% endif %}
+    <p>
+        <a href="{{ path('application_add' , {id: advert.id} ) }}" >
+            <button class="btn btn-primary" type="submit">Postuler</button>  
+        </a>
+    </p> 
+   <p>
+        <a href="{{ path('list_adverts') }}">Retour à l'accueil</a>
+    </p>
+ {% if not advert.application.empty %}  
+    <div class="example-wrapper">
+        <h1>Candidatures:</h1>
+
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Contenu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
+                    <tr>
+                        <td> {{ application.date|date('d:m:Y') }} </td>
+                        <td> {{ application.author}} </td>
+                        <td> {{ application.content }} </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+{% endif %}
+
+    
+  
+
+{% endblock %}

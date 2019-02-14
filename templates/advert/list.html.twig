@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdvertController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="example-wrapper">
+    <h1>Petites annonces:</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Date</th>
+      <th scope="col">Auteur</th>
+      <th scope="col">Contenu</th>
+      <th scope="col">Image</th>
+      <th scope="col">Etat</th>
+      <th scope="col">Plus</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for advert in adverts %}
+      <tr>
+        <td> {{ advert.title }} </td>
+        <td> {{ advert.date|date('d:m:Y') }} </td>
+        <td> {{ advert.author}} </td>
+        <td> {{ advert.content }} </td>
+        <td> 
+            {% if advert.image is not null %}
+               <img src="{{ advert.image.url }}" width="75"  height="75"  />
+            {% endif  %}
+        </td>
+        <td>
+            {% if advert.published == true %} 
+              <span class="badge badge-success">Publiée</span>
+           {% else %} 
+              <span class="badge badge-warning">En attente</span>
+            {% endif  %}
+        </td>
+        <td> 
+            <a href="{{ path('details_advert', {id:advert.id}) }}">
+              <button type="button" class="btn btn-info">Détails</button>
+            </a> 
+            <a href="{{ path('delete_advert', {id:advert.id}) }}">
+               <button type="button" class="btn btn-danger">Supprimer</button>
+            </a>
+             <a href="{{ path('edit_advert', {id:advert.id}) }}">
+               <button type="button" class="btn btn-light">Modifier</button>
+            </a>
+        </td>
+     </tr>
+    {% endfor  %}
+  </tbody>
+</table>
+
+</div>
+{% endblock %}

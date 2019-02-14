@@ -1,0 +1,127 @@
+{% extends 'base.html.twig'  %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %} 
+
+
+{% block body %}
+
+    <h2> Poster une annonce </h2>
+
+    <div class="row">
+		<div class="col-8">
+            {{ form_start(form) }}
+            {{ form_row(form.title, {'label' : 'titre du poste' } ) }}
+
+            {{ form_row(form.author, {'label' : 'Entreprise' }) }}
+
+            {{ form_row(form.content, {'label' : 'Description' }) }}
+
+        </div>
+		<div class="col-4">
+       
+                {{ form_row(form.image, {'attr' : {'placeholder': "url de l'image"}}) }}
+                {{ form_row(form.published) }}
+          
+             
+        </div>
+    </div>	
+
+    <div class="row">
+		
+		<div class="col-6">
+        {# BLOCK SKILLS #}
+            <ul class="skills" data-prototype="{{ form_widget(form.skills.vars.prototype)|e('html_attr') }}">
+                {% for skillField in form.skills %}
+                    <li>
+                        {{ form_widget(skillField) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {# BLOCK SKILLS #}
+
+    </div>
+	<div class="col-6">
+        {{ form_row(form.save) }}
+        
+    </div>
+
+        {{ form_end(form) }}
+    </div>	
+
+
+
+
+{% endblock %}
+
+{% block javascript %} 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+ <script> 
+var $collectionHolder;
+
+// setup an "add a tag" link
+var $addSkillButton = $('<button type="button" class="add_skill_link">Add a skill</button>');
+var $newLinkLi = $('<li></li>').append($addSkillButton);
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('ul.skills');
+
+     // add a delete link to all of the existing tag form li elements
+    $collectionHolder.find('li').each(function() {
+        addSkillFormDeleteLink($(this));
+    });
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addSkillButton.on('click', function(e) {
+        // add a new tag form (see next code block)
+        addSkillForm($collectionHolder, $newLinkLi);
+    });
+});
+
+function addSkillForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+
+    // get the new index
+    var index = $collectionHolder.data('index');
+
+    var newForm = prototype;
+    // You need this only if you didn't set 'label' => false in your tags field in TaskType
+    // Replace '__name__label__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    // newForm = newForm.replace(/__name__label__/g, index);
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    newForm = newForm.replace(/__name__/g, index);
+
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li></li>').append(newForm);
+    $newLinkLi.before($newFormLi);
+
+     // add a delete link to the new form
+    addSkillFormDeleteLink($newFormLi);
+}
+
+function addSkillFormDeleteLink($skillFormLi) {
+    var $removeFormButton = $('<button type="button">Delete this skill</button>');
+    $skillFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+        // remove the li for the tag form
+        $skillFormLi.remove();
+    });
+}
+
+</script>
+
+ {% endblock %}
