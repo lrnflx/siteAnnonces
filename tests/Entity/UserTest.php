@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {   
-    /**@var User */
+    /** @var User */
     private $user;
 
     protected function setUp()
@@ -28,8 +28,7 @@ class UserTest extends TestCase
     }
 
     public function testIsUser()
-    {   
-        $this->user->setRoles(['ROLE_USER']);
-        $this->assertSame(['ROLE_USER'], $this->user->getRoles());
+    {
+        self::assertSame(['ROLE_USER'], $this->user->getRoles());
     }
 }

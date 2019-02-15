@@ -41,18 +41,15 @@ class SecurityController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             //Hash
             $hash = $encoder->encodePassword($user, $user->getPassword());
-
             $user->setPassword($hash);
-
-
             $manager->persist($user);
             $manager->flush();
 
             return $this->redirectToRoute('app_login');
         }
- 
         
         return $this->render('security/registration.html.twig', [
                 'form' => $form->createView()

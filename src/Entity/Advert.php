@@ -25,7 +25,6 @@ class Advert
     public function __construct()
     {
         $this->application = new ArrayCollection();
-        $this->advertSkills = new ArrayCollection();
         $this->skills = new ArrayCollection();
     }
 

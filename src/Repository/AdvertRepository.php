@@ -19,6 +19,16 @@ class AdvertRepository extends ServiceEntityRepository
         parent::__construct($registry, Advert::class);
     }
 
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('l')
+            ->setMaxResults(10)
+            ->orderBy('l.date', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Advert[] Returns an array of Advert objects
     //  */
