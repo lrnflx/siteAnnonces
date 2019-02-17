@@ -14,21 +14,29 @@ class UserTest extends TestCase
     {
         $this->user = new User();
     }
+
+    public function testHasFirstName()
+    {
+        $this->user->setFirstName('pierre');
+        self::assertSame('pierre', $this->user->getFirstName());
+    }
     
-    public function testEmail()
+    public function testHasEmail()
     {
         $this->user->setEmail('user@mail.com');
-        $this->assertSame('user@mail.com', $this->user->getEmail());
+        self::assertSame('user@mail.com', $this->user->getEmail());
     }
 
-    public function testPassword()
+    public function testHasPassword()
     {
         $this->user->setPassword('password');
-        $this->assertSame('password', $this->user->getPassword());
+        self::assertSame('password', $this->user->getPassword());
     }
 
-    public function testIsUser()
+    public function testHasRoleUser()
     {
         self::assertSame(['ROLE_USER'], $this->user->getRoles());
     }
+
+    
 }

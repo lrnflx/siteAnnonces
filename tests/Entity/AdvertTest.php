@@ -2,9 +2,12 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Image;
 use App\Entity\Advert;
 use App\Entity\AdvertSkill;
+use App\Entity\Application;
 use PHPUnit\Framework\TestCase; 
+use Doctrine\Common\Collections\ArrayCollection;
 
 class AdvertTest extends TestCase
 {
@@ -15,6 +18,12 @@ class AdvertTest extends TestCase
         {
             $this->advert= new Advert();
         }
+
+        public function testConstruct()
+        {
+            self::assertInstanceOf(ArrayCollection::class,$this->advert->getApplication());
+        }
+
 
         public function testRemoveSkill()
         {
@@ -36,4 +45,24 @@ class AdvertTest extends TestCase
 
             self::assertCount(0, $this->advert->getSkills());
         }
+
+        public function testHasImage()
+        {
+            $image = $this->createMock(Image::class);
+            $this->advert->setImage($image);
+            self::assertSame($image, $this->advert->getImage());
+        }
+
+        public function testHasApplication()
+        {
+            $application = $this->createMock(Application::class);
+            $application->method('getAdvert')->willReturn($this->advert);
+
+            $this->advert->addApplication($application);
+            self::assertCount(1,$this->advert->getApplication());
+
+            $this->advert->removeApplication($application);
+            self::assertCount(0, $this->advert->getApplication());
+        }
+      
 }
